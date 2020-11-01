@@ -1,0 +1,2 @@
+migration_path: src/config/db/migrations
+connection_path: src/config/db/conn.yml
