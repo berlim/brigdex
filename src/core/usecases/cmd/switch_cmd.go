@@ -6,6 +6,7 @@ import (
 
 	"github.com/berlim/bridgex/src/core/models"
 	"github.com/berlim/bridgex/src/core/usecases/db/create"
+	"github.com/berlim/bridgex/src/core/usecases/db/destroy"
 )
 
 func SwitchCmd(configData models.ConfigData) error {
@@ -32,7 +33,9 @@ func switchDB(option string, configData models.ConfigData) error {
 	case "migrate":
 		err = nil
 	case "destroy":
-		err = nil
+		dbDestroy := destroy.NewDbDrop(configData)
+		err = dbDestroy.Call()
+		break
 	default:
 		err = errors.New("this option dont exist")
 	}
