@@ -1,7 +1,6 @@
 package helpers
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"github.com/berlim/bridgex/src/core/models"
@@ -33,17 +32,29 @@ func LoadData(env string) (models.ConfigData, error) {
 
 	var data models.ConfigData
 	var paths path
+	var conf dbConf
 
 	yamlPath, err := ioutil.ReadFile("bridgex.yml")
 
-	ymlStr := string(yamlPath)
-
 	err = yaml.Unmarshal(yamlPath, &paths)
 
-	fmt.Printf("File: %v \n", ymlStr)
-	fmt.Printf("Migration Path: %v \n", paths.MigrationPath)
+	if err != nil {
+		return data, err
+	}
 
-	return data, err
+	yamlConnection, err := ioutil.ReadFile(paths.ConnectionPath)
+
+	err = yaml.Unmarshal(yamlConnection, &conf)
+
+	if err != nil {
+		return data, err
+	}
+
+	cnxData := getConnectionDataByEnv(env, conf)
+
+	data = setConfigData(cnxData, paths, env)
+
+	return data, nil
 }
 
 func setConfigData(data connectionData, paths path, env string) models.ConfigData {
