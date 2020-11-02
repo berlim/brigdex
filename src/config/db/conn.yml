@@ -1,0 +1,26 @@
+development:
+  driver: postgres
+  host: localhost
+  database_name: banco_development
+  user_name: doadmin
+  port: 5432
+  password: 
+  ssl_mode: disable 
+
+test:
+  driver: postgres
+  host: localhost
+  database_name: banco_test
+  user_name: doadmin
+  port: 5432
+  password: 
+  ssl_mode: disable 
+
+production:
+  driver: postgres
+  host: localhost
+  database_name: banco
+  user_name: doadmin
+  port: 5432
+  password: 
+  ssl_mode: disable 
