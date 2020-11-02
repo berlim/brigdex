@@ -34,6 +34,10 @@ func (t *ConfigData) GetDataBaseName() string {
 	return t.dbName
 }
 
+func (t *ConfigData) GetMigrationsPath() string {
+	return t.migrationPath
+}
+
 func (t *ConfigData) GetOpenConnection() (string, string) {
 	open := fmt.Sprintf("host=%v user=%v dbname=%v sslmode=%v password=%v port=%v",
 		t.dbHost,
